@@ -1,11 +1,11 @@
 #!/bin/bash
 ################################################################################
 # Original Author:   Kudaraidee
-# Modified by : CircuiBreaker (https://github.com/innova-foundation/yiimp_install_script)
+# Modified by : 0xcircuibreaker (https://github.com/innova-foundation/yiimp_install_script)
 
 # Program:
 #   Install yiimp on Ubuntu 20.04 running Nginx, MariaDB, and php7.4
-#   v0.4 (update June, 2023)
+#   v0.4 (update May, 2023)
 #
 ################################################################################
 
@@ -923,7 +923,7 @@
     sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2019-03-coins_thepool_life.sql
     sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2022-10-14-shares_solo.sql
     sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2022-10-29-blocks_effort.sql
-    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2023-05-12-algos.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2023-05-30-algos.sql
     echo -e "$GREEN Done...$COL_RESET"
 
 

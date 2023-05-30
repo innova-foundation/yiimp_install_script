@@ -1,4 +1,4 @@
-# Yiimp_install_scrypt v0.4 (update June, 2023)
+# Yiimp_install_scrypt v0.4 (update May, 2023)
 
 Official Yiimp (used in this script for Yiimp Installation): https://github.com/innova-foundation/yiimp
 
