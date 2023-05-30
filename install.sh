@@ -1,11 +1,11 @@
 #!/bin/bash
 ################################################################################
 # Original Author:   Kudaraidee
-# Modified by : Delari (https://github.com/xavatar/yiimp_install_scrypt)
+# Modified by : CircuiBreaker (https://github.com/innova-foundation/yiimp_install_script)
 
 # Program:
-#   Install yiimp on Ubuntu 16.04/18.04 running Nginx, MariaDB, and php7.3
-#   v0.3 (update May, 2022)
+#   Install yiimp on Ubuntu 20.04 running Nginx, MariaDB, and php7.4
+#   v0.4 (update June, 2023)
 #
 ################################################################################
 
@@ -44,8 +44,8 @@
     clear
     echo
     echo -e "$GREEN************************************************************************$COL_RESET"
-    echo -e "$GREEN Yiimp Install Script v0.3 $COL_RESET"
-    echo -e "$GREEN Install yiimp on Ubuntu 16.04/18.04 running Nginx, MariaDB, and php7.3 $COL_RESET"
+    echo -e "$GREEN Yiimp Install Script v0.4 $COL_RESET"
+    echo -e "$GREEN Install yiimp on Ubuntu 20.04 running Nginx, MariaDB, and php7.4 $COL_RESET"
     echo -e "$GREEN************************************************************************$COL_RESET"
     echo
     sleep 3
@@ -90,16 +90,6 @@
     read -e -p "Install Fail2ban? [Y/n] : " install_fail2ban
     read -e -p "Install UFW and configure ports? [Y/n] : " UFW
     read -e -p "Install LetsEncrypt SSL? IMPORTANT! You MUST have your domain name pointed to this server prior to running the script!! [Y/n]: " ssl_install
-
-
-    # Switch Aptitude
-    #echo
-    #echo -e "$CYAN Switching to Aptitude $COL_RESET"
-    #echo
-    #sleep 3
-    #sudo apt -y install aptitude
-    #echo -e "$GREEN Done...$COL_RESET $COL_RESET"
-
 
     # Installing Nginx
     echo
@@ -159,10 +149,10 @@
     echo -e "$GREEN Done...$COL_RESET"
 
 
-    # Installing Installing php7.3
+    # Installing Installing php7.4
     echo
     echo
-    echo -e "$CYAN => Installing php7.3 : $COL_RESET"
+    echo -e "$CYAN => Installing php7.4 : $COL_RESET"
     echo
     sleep 3
 
@@ -172,21 +162,13 @@
     fi
     sudo apt -y update
 
-    if [[ ("$DISTRO" == "16") ]]; then
-    sudo apt -y install php7.3-fpm php7.3-opcache php7.3 php7.3-common php7.3-gd php7.3-mysql php7.3-imap php7.3-cli \
-    php7.3-cgi php-pear php-auth imagemagick libruby php7.3-curl php7.3-intl php7.3-pspell mcrypt\
-    php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xsl memcached php-memcache php-imagick php-gettext php7.3-zip php7.3-mbstring
-    #sudo phpenmod mcrypt
-    #sudo phpenmod mbstring
-    else
-    sudo apt -y install php7.3-fpm php7.3-opcache php7.3 php7.3-common php7.3-gd php7.3-mysql php7.3-imap php7.3-cli \
-    php7.3-cgi php-pear imagemagick libruby php7.3-curl php7.3-intl php7.3-pspell mcrypt\
-    php7.3-recode php7.3-sqlite3 php7.3-tidy php7.3-xmlrpc php7.3-xsl memcached php7.3-memcache php7.3-memcached php-imagick php-gettext php7.3-zip php7.3-mbstring \
+   sudo apt -y install php7.4 php7.4-fpm php7.4-opcache php7.4-common php7.4-gd php7.4-mysql php7.4-imap php7.4-cli \
+    php7.4-cgi php-pear imagemagick libruby php7.4-curl php7.4-intl php7.4-pspell mcrypt\
+    php7.4-sqlite3 php7.4-tidy php7.4-xmlrpc php7.4-xsl memcached php7.4-memcache php7.4-memcached php-imagick php7.4-zip php7.4-mbstring \
     libpsl-dev libnghttp2-dev
-    fi
     sleep 5
-    sudo systemctl start php7.3-fpm
-    sudo systemctl status php7.3-fpm | sed -n "1,3p"
+    sudo systemctl start php7.4-fpm
+    sudo systemctl status php7.4-fpm | sed -n "1,3p"
     sleep 15
     echo
     echo -e "$GREEN Done...$COL_RESET"
@@ -216,12 +198,8 @@
 
     sudo apt -y install software-properties-common build-essential
     sudo apt -y install libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils git cmake libboost-all-dev zlib1g-dev libz-dev libseccomp-dev libcap-dev libminiupnpc-dev gettext
-    sudo apt -y install libminiupnpc10 libzmq5
-    sudo apt -y install libcanberra-gtk-module libqrencode-dev libzmq3-dev
-    sudo apt -y install libqt5gui5 libqt5core5a libqt5webkit5-dev libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
-    sudo add-apt-repository -y ppa:bitcoin/bitcoin
-    sudo apt -y update
-    sudo apt -y install libdb4.8-dev libdb4.8++-dev libdb5.3 libdb5.3++
+    sudo apt -y install libssh-dev libbrotli-dev
+    sudo apt -y install libminiupnpc17 libzmq5
     echo -e "$GREEN Done...$COL_RESET"
 
 
@@ -277,60 +255,7 @@
     sudo ufw allow ssh
     sudo ufw allow http
     sudo ufw allow https
-    sudo ufw allow 3333/tcp
-    sudo ufw allow 3339/tcp
-    sudo ufw allow 3334/tcp
-    sudo ufw allow 3433/tcp
-    sudo ufw allow 3555/tcp
-    sudo ufw allow 3556/tcp
-    sudo ufw allow 3573/tcp
-    sudo ufw allow 3535/tcp
-    sudo ufw allow 3533/tcp
-    sudo ufw allow 3553/tcp
-    sudo ufw allow 3633/tcp
-    sudo ufw allow 3733/tcp
-    sudo ufw allow 3636/tcp
-    sudo ufw allow 3737/tcp
-    sudo ufw allow 3739/tcp
-    sudo ufw allow 3747/tcp
-    sudo ufw allow 3833/tcp
-    sudo ufw allow 3933/tcp
-    sudo ufw allow 4033/tcp
-    sudo ufw allow 4133/tcp
-    sudo ufw allow 4233/tcp
-    sudo ufw allow 4234/tcp
-    sudo ufw allow 4333/tcp
-    sudo ufw allow 4433/tcp
-    sudo ufw allow 4533/tcp
-    sudo ufw allow 4553/tcp
-    sudo ufw allow 4633/tcp
-    sudo ufw allow 4733/tcp
-    sudo ufw allow 4833/tcp
-    sudo ufw allow 4933/tcp
-    sudo ufw allow 5033/tcp
-    sudo ufw allow 5133/tcp
-    sudo ufw allow 5233/tcp
-    sudo ufw allow 5333/tcp
-    sudo ufw allow 5433/tcp
-    sudo ufw allow 5533/tcp
-    sudo ufw allow 5733/tcp
-    sudo ufw allow 5743/tcp
-    sudo ufw allow 3252/tcp
-    sudo ufw allow 5755/tcp
-    sudo ufw allow 5766/tcp
-    sudo ufw allow 5833/tcp
-    sudo ufw allow 5933/tcp
-    sudo ufw allow 6033/tcp
-    sudo ufw allow 5034/tcp
-    sudo ufw allow 6133/tcp
-    sudo ufw allow 6233/tcp
-    sudo ufw allow 6333/tcp
-    sudo ufw allow 6433/tcp
-    sudo ufw allow 7433/tcp
-    sudo ufw allow 7070/tcp
     sudo ufw allow 8333/tcp
-    sudo ufw allow 8463/tcp
-    sudo ufw allow 8433/tcp
     sudo ufw allow 8533/tcp
     sudo ufw --force enable
     sleep 5
@@ -374,7 +299,7 @@
 
     # Compil Blocknotify
     cd ~
-    git clone https://github.com/Kudaraidee/yiimp.git
+    git clone https://github.com/innova-foundation/yiimp.git
     cd $HOME/yiimp/blocknotify
     sudo sed -i 's/tu8tu5/'$blckntifypass'/' blocknotify.cpp
     make -j$((`nproc`+1))
@@ -491,7 +416,7 @@
 
         location ~ ^/index\.php$ {
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
             fastcgi_index index.php;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -528,7 +453,7 @@
             deny all;
       }
         location ~ /phpmyadmin/(.+\.php)$ {
-            fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+            fastcgi_pass unix:/run/php/php7.4-fpm.sock;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
             include snippets/fastcgi-php.conf;
@@ -540,7 +465,7 @@
     sudo ln -s /etc/nginx/sites-available/$server_name.conf /etc/nginx/sites-enabled/$server_name.conf
     sudo ln -s /var/web /var/www/$server_name/html
 	sudo ln -s /var/stratum/config /var/web/list-algos
-    sudo systemctl reload php7.3-fpm.service
+    sudo systemctl reload php7.4-fpm.service
     sudo systemctl restart nginx.service
     echo -e "$GREEN Done...$COL_RESET"
 
@@ -622,7 +547,7 @@
 
             location ~ ^/index\.php$ {
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+                fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
                 fastcgi_index index.php;
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -653,7 +578,7 @@
             deny all;
     }
         location ~ /phpmyadmin/(.+\.php)$ {
-            fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+            fastcgi_pass unix:/run/php/php7.4-fpm.sock;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
             include snippets/fastcgi-php.conf;
@@ -664,7 +589,7 @@
     ' | sudo -E tee /etc/nginx/sites-available/$server_name.conf >/dev/null 2>&1
     fi
 
-    sudo systemctl reload php7.3-fpm.service
+    sudo systemctl reload php7.4-fpm.service
     sudo systemctl restart nginx.service
     echo -e "$GREEN Done...$COL_RESET"
 
@@ -707,7 +632,7 @@
 
         location ~ ^/index\.php$ {
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
             fastcgi_index index.php;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -744,7 +669,7 @@
             deny all;
     }
         location ~ /phpmyadmin/(.+\.php)$ {
-            fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+            fastcgi_pass unix:/run/php/php7.4-fpm.sock;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
             include snippets/fastcgi-php.conf;
@@ -756,7 +681,7 @@
     sudo ln -s /etc/nginx/sites-available/$server_name.conf /etc/nginx/sites-enabled/$server_name.conf
     sudo ln -s /var/web /var/www/$server_name/html
 	sudo ln -s /var/stratum/config /var/web/list-algos
-    sudo systemctl reload php7.3-fpm.service
+    sudo systemctl reload php7.4-fpm.service
     sudo systemctl restart nginx.service
     echo -e "$GREEN Done...$COL_RESET"
 
@@ -839,7 +764,7 @@
 
             location ~ ^/index\.php$ {
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+                fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
                 fastcgi_index index.php;
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -872,7 +797,7 @@
             deny all;
     }
         location ~ /phpmyadmin/(.+\.php)$ {
-            fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+            fastcgi_pass unix:/run/php/php7.4-fpm.sock;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
             include snippets/fastcgi-php.conf;
@@ -885,7 +810,7 @@
     echo -e "$GREEN Done...$COL_RESET"
 
     fi
-    sudo systemctl reload php7.3-fpm.service
+    sudo systemctl reload php7.4-fpm.service
     sudo systemctl restart nginx.service
     fi
 
@@ -973,31 +898,32 @@
     cd yiimp/sql
 
     # Import sql dump
-    sudo zcat 2020-11-10-yaamp.sql.gz | sudo mysql --defaults-group-suffix=host1
+    sudo zcat 2020-11-10-yaamp.sql.gz | sudo mysql --defaults-group-suffix=host1 yiimpfrontend
 
     # Oh the humanity!
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-04-24-market_history.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-04-27-settings.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-05-11-coins.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-05-15-benchmarks.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-05-23-bookmarks.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-06-01-notifications.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-06-04-bench_chips.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2016-11-23-coins.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2017-02-05-benchmarks.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2017-03-31-earnings_index.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2020-06-03-blocks.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2017-05-accounts_case_swaptime.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2017-06-payouts_coinid_memo.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2017-09-notifications.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2017-10-bookmarks.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2018-09-22-workers.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2017-11-segwit.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2018-01-stratums_ports.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2018-02-coins_getinfo.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2019-03-coins_thepool_life.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2022-10-14-shares_solo.sql
-    sudo mysql --defaults-group-suffix=host1 --force < 2022-10-29-blocks_effort.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-04-24-market_history.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-04-27-settings.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-05-11-coins.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-05-15-benchmarks.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-05-23-bookmarks.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-06-01-notifications.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-06-04-bench_chips.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2016-11-23-coins.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2017-02-05-benchmarks.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2017-03-31-earnings_index.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2020-06-03-blocks.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2017-05-accounts_case_swaptime.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2017-06-payouts_coinid_memo.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2017-09-notifications.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2017-10-bookmarks.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2018-09-22-workers.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2017-11-segwit.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2018-01-stratums_ports.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2018-02-coins_getinfo.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2019-03-coins_thepool_life.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2022-10-14-shares_solo.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2022-10-29-blocks_effort.sql
+    sudo mysql --defaults-group-suffix=host1 --force yiimpfrontend < 2023-05-12-algos.sql
     echo -e "$GREEN Done...$COL_RESET"
 
 
@@ -1191,8 +1117,8 @@
     sudo systemctl status mysql | sed -n "1,3p"
     sudo systemctl restart nginx.service
     sudo systemctl status nginx | sed -n "1,3p"
-    sudo systemctl restart php7.3-fpm.service
-    sudo systemctl status php7.3-fpm | sed -n "1,3p"
+    sudo systemctl restart php7.4-fpm.service
+    sudo systemctl status php7.4-fpm | sed -n "1,3p"
 
 
     echo
@@ -1203,7 +1129,7 @@
     echo
     echo
     echo -e "$GREEN***************************$COL_RESET"
-    echo -e "$GREEN Yiimp Install Script v0.2 $COL_RESET"
+    echo -e "$GREEN Yiimp Install Script v0.4 $COL_RESET"
     echo -e "$GREEN Finish !!! $COL_RESET"
     echo -e "$GREEN***************************$COL_RESET"
     echo
@@ -1228,7 +1154,7 @@
     echo -e "$RED YOU MUST REBOOT NOW  TO FINALIZE INSTALLATION !!! $COL_RESET"
     echo -e "$RED***************************************************$COL_RESET"
     echo -e "$RED if u have white page blank on site check          $COL_RESET"
-    echo -e "$RED php7.3-memcache | php7.3-memcached | php7.3-fpm   $COL_RESET"
+    echo -e "$RED php7.4-memcache | php7.4-memcached | php7.4-fpm   $COL_RESET"
     echo -e "$RED try just restart them first...                    $COL_RESET"
     echo -e "$RED***************************************************$COL_RESET"
     echo
