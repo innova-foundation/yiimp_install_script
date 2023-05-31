@@ -255,7 +255,6 @@
     sudo ufw allow ssh
     sudo ufw allow http
     sudo ufw allow https
-    sudo ufw allow 8333/tcp
     sudo ufw allow 8533/tcp
     sudo ufw --force enable
     sleep 5

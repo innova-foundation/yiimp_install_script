@@ -1,9 +1,9 @@
-Yiimp Install Scrypt v0.2 // 10.04.2020
+Yiimp Install Scrypt v0.4 // 5.30.2023
 Thanks to cryptopool-builders !!!!!!!!
 
 Information =>
-* Works with Ubuntu Server 16.04 / 18.04
-* Update PHP 7.3
+* Works with Ubuntu Server 18.04 / 20.04
+* Update PHP 7.3 (PHP 7.4)
 * Change Aptitude by APT
 * Remove question Panel Admin
 * Remove question Time Zone
